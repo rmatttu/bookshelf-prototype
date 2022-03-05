@@ -6,9 +6,14 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Book {
+class Book() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
     var title: String = ""
+
+    constructor(id: Int, title: String):this() {
+        this.id = id
+        this.title = title
+    }
 }
