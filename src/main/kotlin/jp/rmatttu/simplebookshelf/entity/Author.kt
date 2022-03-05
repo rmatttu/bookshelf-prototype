@@ -18,4 +18,9 @@ class Author (){
         this.id = id
         this.name = name
     }
+
+    override fun toString(): String {
+        return "Author(id=$id, name='$name', bookAuthors=$bookAuthors)"
+    }
+
 }
