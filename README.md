@@ -8,6 +8,15 @@ Windows
 winget install Microsoft.OpenJDK.17
 ```
 
+## Usage
+
+```bash
+./gradlew bootJar
+
+./gradlew build
+java -jar build/libs/
+```
+
 ## 参考 / メモ
 
 ### Spring boot / Kotlin
@@ -28,6 +37,13 @@ winget install Microsoft.OpenJDK.17
 * [簡単なWebAPIを作ってみよう編｜SpringBootに入門するための助走本（Zenn改訂版）](https://zenn.dev/sugaryo/books/spring-boot-run-up/viewer/api_controller)
 * [Spring Boot JPA で MySQL データアクセス - 公式サンプルコード](https://spring.pleiades.io/guides/gs/accessing-data-mysql/)
 * Javaの命名規則 [Code Conventions for the Java Programming Language: 9. Naming Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html)
+* [Kotlin文法 - クラス、継承、プロパティ - Qiita](https://qiita.com/k5n/items/35e76d79ee9de4effb89)
+* [Kotlin3日目で気になった仕様を列挙する #love_kotlin - Qiita](https://qiita.com/hiroga/items/4bbab5cce8dc39120c8e)
+
+### Spring Data JPA
+
+* [Spring Data JPAのソート - Qiita](https://qiita.com/parapore/items/4acffd670fc913e05d85)
+* [【Spring Data JPA】自動実装されるメソッドの命名ルール - Qiita](https://qiita.com/shindo_ryo/items/af7d12be264c2cc4b252)
 
 ### IntelliJ IDEA
 
