@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Spring boot ###
+/h2db/*.db
