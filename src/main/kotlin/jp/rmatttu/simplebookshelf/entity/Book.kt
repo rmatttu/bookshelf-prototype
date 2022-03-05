@@ -11,10 +11,10 @@ class Book() {
     @Column
     var title: String = ""
 
-    @OneToMany(mappedBy = "author")
-    var authors: List<Author> = ArrayList<Author>()
+    @OneToMany(mappedBy = "book")
+    var bookAuthors: List<BookAuthor> = ArrayList<BookAuthor>()
 
-    constructor(id: Int, title: String, ):this() {
+    constructor(id: Int, title: String) : this() {
         this.id = id
         this.title = title
     }

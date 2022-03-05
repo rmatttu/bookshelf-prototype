@@ -11,8 +11,8 @@ class Author (){
     @Column
     var name: String = ""
 
-    @OneToMany(mappedBy = "book")
-    var bookAuthors: Set<BookAuthor>? = null
+    @OneToMany(mappedBy = "author")
+    var bookAuthors: List<BookAuthor> = ArrayList<BookAuthor>()
 
     constructor(id: Int, name: String):this() {
         this.id = id

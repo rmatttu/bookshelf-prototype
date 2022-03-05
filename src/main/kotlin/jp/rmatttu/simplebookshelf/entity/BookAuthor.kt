@@ -8,12 +8,20 @@ class BookAuthor() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
 
+    /**
+     * Book
+     *
+     * `book_id`カラムのidから自動的にマッピングされます
+     */
     @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-    @JoinColumn(name = "book_id")
     var book: Book = Book()
 
+    /**
+     * Author
+     *
+     * `author_id`カラムから自動的にマッピングされます
+     */
     @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-    @JoinColumn(name = "author_id")
     var author: Author = Author()
 
     constructor(id: Int, book: Book, author: Author):this() {
