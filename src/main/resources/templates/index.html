@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Users</h1>
-    <input type="button" onclick="location.href='/add'" value="追加ページ">
+    <input type="button" onclick="location.href='/book/new'" value="書籍の追加">
     <ul>
         <li th:each="book : ${books}">[[${book.title}]]</li>
     </ul>
