@@ -51,6 +51,7 @@ java -jar build/libs/
 * IntelliJ 参考 [Spring Boot | IntelliJ IDEA](https://pleiades.io/help/idea/spring-boot.html)
 * [IntelliJ IDEA初期設定（主にエディタ） - Qiita](https://qiita.com/keitakn/items/5968b9eee4177c302481)
 * [Gradle ツールウィンドウ | IntelliJ IDEA](https://pleiades.io/help/idea/jetgradle-tool-window.html)
+* [Enable Git Staging - IntelliJ IDEA Guide](https://www.jetbrains.com/idea/guide/tips/enable-git-staging/)
 
 ## 便利ツール
 
