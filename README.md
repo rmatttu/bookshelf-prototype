@@ -44,6 +44,7 @@ java -jar build/libs/
 
 * [Spring Data JPAのソート - Qiita](https://qiita.com/parapore/items/4acffd670fc913e05d85)
 * [【Spring Data JPA】自動実装されるメソッドの命名ルール - Qiita](https://qiita.com/shindo_ryo/items/af7d12be264c2cc4b252)
+* [JPAで関連テーブルのカラムの取得 - Qiita](https://qiita.com/kagamihoge/items/a1121a15da3e5a638543)
 
 ### IntelliJ IDEA
 
