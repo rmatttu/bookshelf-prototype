@@ -1,4 +1,4 @@
-package com.example.demo.entity
+package jp.rmatttu.simplebookshelf.entity
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

@@ -1,4 +1,4 @@
-package com.example.demo.entity
+package jp.rmatttu.simplebookshelf.entity
 
 class Author (name:String){
     val authorName = name

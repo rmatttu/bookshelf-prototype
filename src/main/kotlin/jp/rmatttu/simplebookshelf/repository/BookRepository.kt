@@ -1,6 +1,6 @@
-package com.example.demo.repository
+package jp.rmatttu.simplebookshelf.repository
 
-import com.example.demo.entity.Book
+import jp.rmatttu.simplebookshelf.entity.Book
 import org.springframework.data.repository.CrudRepository
 
 interface BookRepository : CrudRepository<Book, Int> {

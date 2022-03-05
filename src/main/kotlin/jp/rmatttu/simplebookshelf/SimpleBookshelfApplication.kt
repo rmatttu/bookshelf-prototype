@@ -1,13 +1,13 @@
-package com.example.demo
+package jp.rmatttu.simplebookshelf
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class DemoApplication
+class SimpleBookshelfApplication
 
 fun main(args: Array<String>) {
-	runApplication<DemoApplication>(*args)
+	runApplication<SimpleBookshelfApplication>(*args)
 	println("hello")
 	Thread.sleep(10000)
 	println("hello")
