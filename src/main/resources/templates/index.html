@@ -8,7 +8,7 @@
     <h1>Users</h1>
     <input type="button" onclick="location.href='/add'" value="追加ページ">
     <ul>
-        <li th:each="user : ${users}">[[${user.name}]]</li>
+        <li th:each="book : ${books}">[[${book.title}]]</li>
     </ul>
 </body>
 </html>
