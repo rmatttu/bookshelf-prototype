@@ -1,5 +1,6 @@
 package jp.rmatttu.simplebookshelf
 
+import jp.rmatttu.simplebookshelf.repository.Seeder
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -7,8 +8,5 @@ import org.springframework.boot.runApplication
 class SimpleBookshelfApplication
 
 fun main(args: Array<String>) {
-	runApplication<SimpleBookshelfApplication>(*args)
-	println("hello")
-	Thread.sleep(10000)
-	println("hello")
+    runApplication<SimpleBookshelfApplication>(*args)
 }
