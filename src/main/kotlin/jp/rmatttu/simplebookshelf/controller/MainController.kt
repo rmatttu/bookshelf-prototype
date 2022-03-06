@@ -26,19 +26,13 @@ class MainController {
     lateinit var bookAuthorRepository: BookAuthorRepository
 
     @GetMapping("/")
-    fun showUsers(model: Model): String{
-        val book = Book()
-        book.title="this is test"
-
-        val author = Author()
-        author.name = "tom"
+    fun showUsers(model: Model): String {
+        val book = Book("this is test")
+        bookRepository.save(book)
+        val author = Author("tom")
         authorRepository.save(author)
-
-        val bookAuthor = BookAuthor()
-        bookAuthor.book = book
-        bookAuthor.author = author
+        val bookAuthor = BookAuthor(book, author)
         bookAuthorRepository.save(bookAuthor)
-
 
         val books = bookRepository.findAll()
         model.addAttribute("books", books)
@@ -49,13 +43,13 @@ class MainController {
     }
 
     @GetMapping("/book/new")
-    fun showAddPage(): String  {
+    fun showAddPage(): String {
         return "book/new"
     }
 
     @PostMapping("/book/new")
     fun addNewUser(@RequestParam title: String): String {
-        bookRepository.save(Book(0, title))
+        bookRepository.save(Book(title))
         return "redirect:/"
     }
 }

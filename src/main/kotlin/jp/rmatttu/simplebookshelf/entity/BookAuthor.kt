@@ -3,10 +3,11 @@ package jp.rmatttu.simplebookshelf.entity
 import javax.persistence.*
 
 @Entity
-class BookAuthor() {
+class BookAuthor(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    val id: Int,
 
     /**
      * Book
@@ -14,7 +15,7 @@ class BookAuthor() {
      * `book_id`カラムのidから自動的にマッピングされます
      */
     @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-    var book: Book = Book()
+    val book: Book,
 
     /**
      * Author
@@ -22,12 +23,10 @@ class BookAuthor() {
      * `author_id`カラムから自動的にマッピングされます
      */
     @ManyToOne(cascade = arrayOf(CascadeType.ALL))
-    var author: Author = Author()
+    val author: Author
+) {
 
-    constructor(id: Int, book: Book, author: Author):this() {
-        this.id = id
-        this.book = book
-        this.author = author
+    constructor(book: Book, author: Author): this(0, book, author){
     }
 
     override fun toString(): String {

@@ -3,20 +3,20 @@ package jp.rmatttu.simplebookshelf.entity
 import javax.persistence.*
 
 @Entity
-class Book() {
+class Book(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    val id: Int,
 
     @Column
-    var title: String = ""
+    val title: String,
 
     @OneToMany(mappedBy = "book")
-    var bookAuthors: List<BookAuthor> = ArrayList<BookAuthor>()
+    val bookAuthors: List<BookAuthor>
+) {
 
-    constructor(id: Int, title: String) : this() {
-        this.id = id
-        this.title = title
+    constructor(title: String) : this(0, title, ArrayList<BookAuthor>()) {
     }
 
     override fun toString(): String {
