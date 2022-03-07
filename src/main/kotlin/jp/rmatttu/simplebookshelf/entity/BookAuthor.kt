@@ -34,7 +34,7 @@ class BookAuthor(
     val author: Author
 ) {
 
-    constructor(book: Book, author: Author): this(0, book, author){
+    constructor(book: Book, author: Author) : this(0, book, author) {
     }
 
     override fun toString(): String {

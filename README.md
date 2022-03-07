@@ -39,6 +39,9 @@ java -jar build/libs/
 * Javaの命名規則 [Code Conventions for the Java Programming Language: 9. Naming Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html)
 * [Kotlin文法 - クラス、継承、プロパティ - Qiita](https://qiita.com/k5n/items/35e76d79ee9de4effb89)
 * [Kotlin3日目で気になった仕様を列挙する #love_kotlin - Qiita](https://qiita.com/hiroga/items/4bbab5cce8dc39120c8e)
+* [Spring Bootでアプリケーション起動と停止のタイミングで処理を行う方法 - Sassyブログ](https://www.sassy-blog.com/entry/20170922/1506039577#2-1%E8%B5%B7%E5%8B%95%E3%81%A8%E5%81%9C%E6%AD%A2%E6%99%82%E3%81%AB%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%95%E3%82%8C%E3%82%8B%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E5%AE%9A%E7%BE%A9%E3%81%97%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)
+* [Kotlin のコレクション使い方メモ - Qiita](https://qiita.com/opengl-8080/items/36351dca891b6d9c9687#all)
+
 
 ### Spring Data JPA
 
