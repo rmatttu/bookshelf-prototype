@@ -3,6 +3,14 @@ package jp.rmatttu.simplebookshelf.entity
 import javax.persistence.*
 
 @Entity
+//@Table(indexes = @Index(column::= index_column))
+@Table(
+    indexes = [
+        // indexのnameに何も指定しないと適当な名前が設定される e.g. IDXq37qkj7serxg0bh56m450uigs
+        Index(name = "idx_book_authors_book_id", columnList = "book_id"),
+        Index(name = "idx_book_authors_author_id", columnList = "author_id")
+    ]
+)
 class BookAuthor(
 
     @Id
