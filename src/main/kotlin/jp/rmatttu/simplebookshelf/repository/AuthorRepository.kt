@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface AuthorRepository : CrudRepository<Author, Int> {
     fun findByNameContaining(searchWord: String): List<Author>
+    fun findAllByOrderByIdDesc(): List<Author>
 }

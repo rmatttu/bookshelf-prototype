@@ -28,21 +28,16 @@ class MainController {
 
     @GetMapping("/")
     fun showUsers(@RequestParam(defaultValue = "") author: String, model: Model): String {
+        model["author"] = author
+
         if (author.isEmpty()){
             // TODO top10件ぐらいを返すよう修正
-            model["books"] = bookRepository.findAllByOrderByIdDesc()
+            model["authors"] = authorRepository.findAllByOrderByIdDesc()
             return "index"
         }
 
-
-        val authors = authorRepository.findByNameContaining(author)
-        model["books"] = bookRepository.findAllByOrderByIdDesc()
+        model["authors"] = authorRepository.findByNameContaining(author)
         return "index"
-    }
-
-    fun getTopBooks(limit: Int): MutableIterable<Book> {
-        // TODO 時間があれば実装
-        return bookRepository.findAll()
     }
 
 }

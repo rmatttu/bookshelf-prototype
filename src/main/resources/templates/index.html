@@ -20,13 +20,17 @@
 
     <div>
         <form action="/" method="get">
-            <input type="search" id="author" name="author" placeholder="著者名（e.g. John Doe）"/>
+            <input type="search" id="author" name="author" placeholder="著者名（e.g. John Doe）" th:value="${author}">
             <button type="submit">検索</button>
         </form>
     </div>
 
     <ul>
-        <li th:each="book : ${books}">[[${book.title}]]</li>
+        <li th:each="author : ${authors}">
+            <a th:href="'/author/' + ${author.id}">
+                [[${author.name}]]
+            </a>
+        </li>
     </ul>
 </div>
 
