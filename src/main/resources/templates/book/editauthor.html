@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>hello</h1>
+    <p>[[${message}]]</p>
+    <p>[[${book.title}]]</p>
+    <ul>
+        <li th:each="author : ${authors}">[[${author.name}]]</li>
+    </ul>
+
+    <form method="get">
+        <input type="text" id="search" name="search">
+        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}">著者を検索</button>
+    </form>
+
+    <form method="post">
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message">
+        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="add"    value="123">+</button>
+        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="remove" value="456">-</button>
+    </form>
+</body>
+</html>

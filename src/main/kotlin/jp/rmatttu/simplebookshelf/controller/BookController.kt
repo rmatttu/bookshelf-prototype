@@ -8,6 +8,8 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
@@ -21,9 +23,55 @@ class BookController {
         if (book.isEmpty) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
         }
-        model["title"] = book.get().title
+        model["message"] = book.get().title
         model["book"] = book.get()
         model["authors"] = book.get().bookAuthors.map { it.author }
         return "book/index"
+    }
+
+    @GetMapping("/book/{id}/editauthor")
+    fun editAuthor(@PathVariable id: Int, model: Model): String {
+        val book = bookRepository.findById(id)
+        if (book.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        model["message"] = ""
+        model["book"] = book.get()
+        model["authors"] = book.get().bookAuthors.map { it.author }
+        return "book/editauthor"
+    }
+
+    @PostMapping("/book/{id}/editauthor", params = ["add"])
+    fun editAuthorAdd(
+        @PathVariable id: Int,
+        @RequestParam add: Int,
+        @RequestParam message: String,
+        model: Model
+    ): String {
+        val book = bookRepository.findById(id)
+        if (book.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        model["message"] = "ADD $add $message"
+        model["book"] = book.get()
+        model["authors"] = book.get().bookAuthors.map { it.author }
+        return "book/editauthor"
+    }
+
+    @PostMapping("/book/{id}/editauthor", params = ["remove"])
+    fun editAuthorRemove(
+        @PathVariable id: Int,
+        @RequestParam remove: String,
+        @RequestParam message: String,
+        model: Model
+    ): String {
+        val book = bookRepository.findById(id)
+        if (book.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        model["message"] = "REMOVE $remove $message"
+        model["book"] = book.get()
+        model["authors"] = book.get().bookAuthors.map { it.author }
+        return "book/editauthor"
     }
 }
