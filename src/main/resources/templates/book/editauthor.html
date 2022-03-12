@@ -12,16 +12,23 @@
         <li th:each="author : ${authors}">[[${author.name}]]</li>
     </ul>
 
-    <form method="get">
-        <input type="text" id="search" name="search">
-        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}">著者を検索</button>
-    </form>
-
     <form method="post">
         <label for="message">Message:</label>
         <input type="text" id="message" name="message">
-        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="add"    value="123">+</button>
-        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="remove" value="456">-</button>
+        <table>
+            <tr th:each="author : ${authors}">
+                <td>
+                    [[${author.name}]]
+                    <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="add"    th:value="${author.id}">+</button>
+                    <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="remove" th:value="${author.id}">-</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="get">
+        <input type="search" id="searchAuthor" name="searchAuthor" th:value="${searchAuthor}">
+        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}">著者を検索</button>
     </form>
 </body>
 </html>
