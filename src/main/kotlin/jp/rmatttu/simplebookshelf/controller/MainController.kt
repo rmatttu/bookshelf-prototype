@@ -9,6 +9,7 @@ import jp.rmatttu.simplebookshelf.repository.BookRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -26,30 +27,22 @@ class MainController {
     lateinit var bookAuthorRepository: BookAuthorRepository
 
     @GetMapping("/")
-    fun showUsers(model: Model): String {
-        val book = Book("this is test")
-        bookRepository.save(book)
-        val author = Author("tom")
-        authorRepository.save(author)
-        val bookAuthor = BookAuthor(book, author)
-        bookAuthorRepository.save(bookAuthor)
+    fun showUsers(@RequestParam(defaultValue = "") author: String, model: Model): String {
+        if (author.isEmpty()){
+            // TODO top10件ぐらいを返すよう修正
+            model["books"] = bookRepository.findAllByOrderByIdDesc()
+            return "index"
+        }
 
-        val books = bookRepository.findAll()
-        model.addAttribute("books", books)
 
-        val authors = authorRepository.findAll()
-        val bookAuthors = bookAuthorRepository.findAll()
+        val authors = authorRepository.findByNameContaining(author)
+        model["books"] = bookRepository.findAllByOrderByIdDesc()
         return "index"
     }
 
-    @GetMapping("/book/new")
-    fun showAddPage(): String {
-        return "book/new"
+    fun getTopBooks(limit: Int): MutableIterable<Book> {
+        // TODO 時間があれば実装
+        return bookRepository.findAll()
     }
 
-    @PostMapping("/book/new")
-    fun addNewUser(@RequestParam title: String): String {
-        bookRepository.save(Book(title))
-        return "redirect:/"
-    }
 }
