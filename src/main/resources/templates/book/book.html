@@ -5,14 +5,24 @@
     <title>Book</title>
 </head>
 <body>
+    <h1>書籍の編集</h1>
     <div>
-        <h1>hello</h1>
-        <p>[[${title}]]</p>
-        <p>[[${book.title}]]</p>
-        <ul>
-            <li th:each="author : ${authors}">[[${author.name}]]</li>
-        </ul>
+        <a href="/">TOP</a> > 書籍の編集
     </div>
+
+    <p>[[${book.title}]]</p>
+
+    <ul>
+        <li th:each="author : ${authors}">
+            <a th:href="'/author/' + ${author.id}">
+                [[${author.name}]]
+            </a>
+        </li>
+    </ul>
+
+    <br>
+
+    <a th:href="'/book/' + ${book.id} + '/editauthor'">著者を編集</a>
 
 </body>
 </html>
