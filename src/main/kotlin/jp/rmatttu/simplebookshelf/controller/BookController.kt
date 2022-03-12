@@ -26,7 +26,7 @@ class BookController {
         model["message"] = book.get().title
         model["book"] = book.get()
         model["authors"] = book.get().bookAuthors.map { it.author }
-        return "book/index"
+        return "book/book"
     }
 
 }
