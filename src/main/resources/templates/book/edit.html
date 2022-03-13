@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>書籍の編集</title>
+</head>
+<body>
+
+<div>
+    <a href="/">TOP</a>
+    > <a th:href="'/book/' + ${id}">書籍</a>
+    > 書籍の編集
+</div>
+
+<h1>書籍の編集</h1>
+<p>
+    [[${message}]]
+</p>
+<form th:action="'/book/' + ${id} + '/edit'" method="post">
+    <label for="title">タイトル:</label>
+    <input type="text" id="title" name="title" th:value="${book.title}">
+    <button type="submit">変更</button>
+</form>
+
+</body>
+</html>

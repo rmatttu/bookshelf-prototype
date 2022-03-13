@@ -1,5 +1,6 @@
 package jp.rmatttu.simplebookshelf.controller
 
+import jp.rmatttu.simplebookshelf.entity.Book
 import jp.rmatttu.simplebookshelf.repository.BookRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -27,6 +28,40 @@ class BookController {
         model["book"] = book.get()
         model["authors"] = book.get().bookAuthors.map { it.author }
         return "book/book"
+    }
+
+    @GetMapping("book/{id}/edit")
+    fun edit(@PathVariable id: Int, model: Model): String {
+        val bookRecord = bookRepository.findById(id)
+        if (bookRecord.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        val book = bookRecord.get()
+
+        model["id"] = id
+        model["message"] = ""
+        model["book"] = book
+        return "book/edit"
+    }
+
+    @PostMapping("book/{id}/edit")
+    fun editPost(@PathVariable id: Int, @RequestParam title: String, model: Model): String {
+        val bookRecord = bookRepository.findById(id)
+        if (bookRecord.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        val book = bookRecord.get()
+
+        // TODO titleのバリデーションを追加、現状、前回同様のタイトル、空文字などが登録できる
+        // TODO ログに変更を記録
+
+        val editedBook = Book(book.id, title, book.bookAuthors)
+        bookRepository.save(editedBook)
+
+        model["id"] = id
+        model["message"] = "「${editedBook.title}」へ変更しました"
+        model["book"] = editedBook
+        return "book/edit"
     }
 
 }
