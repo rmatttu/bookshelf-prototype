@@ -6,10 +6,11 @@ import kotlin.math.ceil
  * ページ境界を管理します
  *
  * @param pageSize 1ページあたりのデータ数
- * @param totalCount トータルデータ量
+ * @param totalDataCount トータルデータ量
+ * @property totalPageCount 総ページ数
  */
-class Pager(val pageSize: Int, val totalCount: Int) {
-    val pageLength = ceil(totalCount / pageSize.toDouble()).toInt()
+class Pager(val pageSize: Int, val totalDataCount: Int) {
+    val totalPageCount = ceil(totalDataCount / pageSize.toDouble()).toInt()
 
     /**
      * 現在のページ（**0から始まります++）を指定して、前のページに遷移できるかどうかを返します
@@ -26,7 +27,7 @@ class Pager(val pageSize: Int, val totalCount: Int) {
      * @param 0から始まるページ番号
      */
     private fun hasNextPage(pageNumber: Int): Boolean {
-        return (pageNumber + 1) < pageLength
+        return (pageNumber + 1) < totalPageCount
     }
 
     /**
@@ -35,11 +36,11 @@ class Pager(val pageSize: Int, val totalCount: Int) {
      * @param 0から始まるページ番号
      */
     fun generatePagerInfo(pageNumber: Int): PagerInfo {
-        return PagerInfo(pageNumber, totalCount, pageLength, hasPrevPage(pageNumber), hasNextPage(pageNumber))
+        return PagerInfo(pageNumber, totalDataCount, totalPageCount, hasPrevPage(pageNumber), hasNextPage(pageNumber))
     }
 
     override fun toString(): String {
-        return "Pager(pageSize=$pageSize, totalCount=$totalCount, pageLength=$pageLength)"
+        return "Pager(pageSize=$pageSize, totalCount=$totalDataCount, pageLength=$totalPageCount)"
     }
 
 }

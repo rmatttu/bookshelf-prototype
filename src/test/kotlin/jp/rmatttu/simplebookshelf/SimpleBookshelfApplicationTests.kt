@@ -20,8 +20,8 @@ class SimpleBookshelfApplicationTests {
     fun checkEmptyPagingInfo() {
         val pagerRecordEmpty = Pager(5, 0)
         var info = pagerRecordEmpty.generatePagerInfo(0)
-        assert(info.total == 0)
-        assert(info.pageLength == 0)
+        assert(info.totalDataCount == 0)
+        assert(info.totalPageCount == 0)
         assert(info.hasNextPage.not())
         assert(info.hasPrevPage.not())
     }
@@ -30,8 +30,8 @@ class SimpleBookshelfApplicationTests {
     fun checkRecordOnePagingInfo() {
         val pagerRecordOne = Pager(5, 1)
         val info = pagerRecordOne.generatePagerInfo(0)
-        assert(info.total == 1)
-        assert(info.pageLength == 1)
+        assert(info.totalDataCount == 1)
+        assert(info.totalPageCount == 1)
         assert(info.hasNextPage.not())
         assert(info.hasPrevPage.not())
     }
@@ -41,8 +41,8 @@ class SimpleBookshelfApplicationTests {
         val pager1 = Pager(3, 10)
 
         var info = pager1.generatePagerInfo(0)
-        assert(info.total == 10)
-        assert(info.pageLength == 4) // ページは0, 1, 2, 3 の計4ページ
+        assert(info.totalDataCount == 10)
+        assert(info.totalPageCount == 4) // ページは0, 1, 2, 3 の計4ページ
         assert(info.hasPrevPage.not())
         assert(info.hasNextPage)
 

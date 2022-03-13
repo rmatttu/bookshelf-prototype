@@ -3,20 +3,20 @@ package jp.rmatttu.simplebookshelf.view
 /**
  * ページング情報を管理します
  *
- * @param currentPage 現在表示しているページ番号（０から始まります）
- * @param total トータルのデータ件数
- * @param pageLength 総ページ数
+ * @param currentPageNumber 現在表示しているページ番号（０から始まります）
+ * @param totalDataCount トータルのデータ件数
+ * @param totalPageCount 総ページ数
  * @param hasPrevPage 前のページ遷移が可能かどうかを表すBoolean
  * @param hasNextPage 次のページ遷移が可能かどうかを表すBoolean
  */
 class PagerInfo(
-    val currentPage: Int,
-    val total: Int,
-    val pageLength: Int,
+    val currentPageNumber: Int,
+    val totalDataCount: Int,
+    val totalPageCount: Int,
     val hasPrevPage: Boolean,
     val hasNextPage: Boolean
 ) {
     override fun toString(): String {
-        return "PagerInfo(currentPage=$currentPage, total=$total, pageLength=$pageLength, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
+        return "PagerInfo(currentPage=$currentPageNumber, total=$totalDataCount, pageLength=$totalPageCount, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
     }
 }
