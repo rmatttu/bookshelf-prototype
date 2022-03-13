@@ -27,9 +27,9 @@
 </ul>
 
 <div>
-    <a th:href="pagerInfo.currentPage"> < </a>
+    <a th:if="${pagingInfo.hasPrevPage}"> < </a>
     [[${pagingInfo.currentPage + 1}]] / [[${pagingInfo.pageLength}]]
-    <a th:href="pagerInfo.currentPage"> > </a>
+    <a th:if="${pagingInfo.hasNextPage}"> > </a>
 </div>
 
 </body>
