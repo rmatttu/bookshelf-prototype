@@ -55,8 +55,7 @@ class BookController {
         }
         val book = bookRecord.get()
 
-        model["id"] = id
-        model["message"] = ""
+        model["edited"] = false
         model["book"] = book
         return "book/edit"
     }
@@ -75,8 +74,7 @@ class BookController {
         val editedBook = Book(book.id, title, book.bookAuthors)
         bookRepository.save(editedBook)
 
-        model["id"] = id
-        model["message"] = "「${editedBook.title}」へ変更しました"
+        model["edited"] = true
         model["book"] = editedBook
         return "book/edit"
     }
