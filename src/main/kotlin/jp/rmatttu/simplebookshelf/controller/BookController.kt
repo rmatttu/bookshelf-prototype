@@ -18,6 +18,24 @@ class BookController {
     @Autowired
     lateinit var bookRepository: BookRepository
 
+    @GetMapping("/book/new")
+    fun newGetMethod(model: Model): String {
+        model["message"] = ""
+        return "book/new"
+    }
+
+    @PostMapping("/book/new")
+    fun newPostMethod(@RequestParam title: String, model: Model): String {
+        // TODO titleのバリデーションを追加、空文字などが登録できてしまう
+
+        val newBook = Book(title)
+        bookRepository.save(newBook)
+        // newBook.id など更新されている
+
+        model["message"] = "「${newBook.title}」を追加しました（書籍番号: ${newBook.id}）"
+        return "book/new"
+    }
+
     @GetMapping("/book/{id}")
     fun index(@PathVariable id: Int, model: Model): String {
         val book = bookRepository.findById(id)

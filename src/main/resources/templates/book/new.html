@@ -5,11 +5,21 @@
     <title>New book</title>
 </head>
 <body>
-    <h1>Add</h1>
-    <form action="/book/new" method="post">
-    <label for="title">Title:</label>
+
+<div>
+    <a href="/">TOP</a>
+    > 書籍の新規作成
+</div>
+
+<h1>書籍の新規作成</h1>
+<p>
+    [[${message}]]
+</p>
+<form action="/book/new" method="post">
+    <label for="title">タイトル:</label>
     <input type="text" id="title" name="title">
     <button type="submit">追加</button>
 </form>
+
 </body>
 </html>
