@@ -20,7 +20,6 @@ class BookController {
 
     @GetMapping("/book/new")
     fun newGetMethod(model: Model): String {
-        model["message"] = ""
         return "book/new"
     }
 
@@ -28,11 +27,11 @@ class BookController {
     fun newPostMethod(@RequestParam title: String, model: Model): String {
         // TODO titleのバリデーションを追加、空文字などが登録できてしまう
 
-        val newBook = Book(title)
-        bookRepository.save(newBook)
+        val book = Book(title)
+        bookRepository.save(book)
         // newBook.id など更新されている
 
-        model["message"] = "「${newBook.title}」を追加しました（書籍番号: ${newBook.id}）"
+        model["commitedBook"] = book
         return "book/new"
     }
 

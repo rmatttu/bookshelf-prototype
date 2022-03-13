@@ -12,12 +12,17 @@
 </div>
 
 <h1>書籍の新規作成</h1>
-<p>
-    [[${message}]]
+
+<!--/* -->
+commitedBookが存在すれば表示される
+<!-- */-->
+<p th:if="${commitedBook} ? true : false">
+    <a th:href="'/book/' + ${commitedBook.id}">「[[${commitedBook.title}]]」</a> を追加しました
 </p>
+
 <form action="/book/new" method="post">
     <label for="title">タイトル:</label>
-    <input type="text" id="title" name="title">
+    <input type="text" id="title" name="title" placeholder="達人プログラマー">
     <button type="submit">追加</button>
 </form>
 
