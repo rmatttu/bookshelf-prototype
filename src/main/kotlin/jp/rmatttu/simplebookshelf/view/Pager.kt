@@ -34,8 +34,8 @@ class Pager(val pageSize: Int, val totalCount: Int) {
      *
      * @param 0から始まるページ番号
      */
-    fun generatePagingInfo(pageNumber: Int): PagingInfo {
-        return PagingInfo(pageNumber, totalCount, pageLength, hasPrevPage(pageNumber), hasNextPage(pageNumber))
+    fun generatePagerInfo(pageNumber: Int): PagerInfo {
+        return PagerInfo(pageNumber, totalCount, pageLength, hasPrevPage(pageNumber), hasNextPage(pageNumber))
     }
 
     override fun toString(): String {

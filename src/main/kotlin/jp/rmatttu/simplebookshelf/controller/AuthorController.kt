@@ -39,11 +39,11 @@ class AuthorController {
 
         val totalCount = bookAuthorRepository.countByAuthorId(author.id)
         val pager = Pager(pageable.pageSize, totalCount)
-        val pagingInfo = pager.generatePagingInfo(pageable.pageNumber)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
         model["author"] = author
         model["books"] = books
-        model["pagingInfo"] = pagingInfo
+        model["pagerInfo"] = pagerInfo
         return "author/author"
     }
 

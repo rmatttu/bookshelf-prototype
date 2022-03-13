@@ -9,7 +9,7 @@ package jp.rmatttu.simplebookshelf.view
  * @param hasPrevPage 前のページ遷移が可能かどうかを表すBoolean
  * @param hasNextPage 次のページ遷移が可能かどうかを表すBoolean
  */
-class PagingInfo(
+class PagerInfo(
     val currentPage: Int,
     val total: Int,
     val pageLength: Int,
@@ -17,6 +17,6 @@ class PagingInfo(
     val hasNextPage: Boolean
 ) {
     override fun toString(): String {
-        return "PagingInfo(currentPage=$currentPage, total=$total, pageLength=$pageLength, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
+        return "PagerInfo(currentPage=$currentPage, total=$total, pageLength=$pageLength, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
     }
 }
