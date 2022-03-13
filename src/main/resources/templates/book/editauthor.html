@@ -20,14 +20,7 @@
 
 <a th:href="|/book/${book.id}|"> [[${book.title}]] </a>
 
-<h2>追加/削除</h2>
-
-<div>
-    <form method="get">
-        <input type="search" id="searchAuthor" name="searchAuthor" th:value="${searchAuthor}">
-        <button type="submit" th:formaction="|/book/${id}/editauthor|">検索</button>
-    </form>
-</div>
+<h2>著者</h2>
 
 <div>
     <form method="post">
@@ -35,12 +28,35 @@
             <tr th:each="author : ${authors}">
                 <td>・</td>
                 <td>
-                    <a th:href="'/author/' + ${author.id}">[[${author.name}]]</a>
-                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="add"
-                            th:value="${author.id}">+
-                    </button>
-                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="remove"
+                    <a th:href="|/author/${author.id}|">[[${author.name}]]</a>
+                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="removeAuthorId"
                             th:value="${author.id}">-
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+<h2>検索して追加</h2>
+
+<div>
+    <form method="get">
+        <input type="search" id="searchAuthor" name="searchAuthor" placeholder="田中 太郎..." th:value="${searchAuthor}">
+        <button type="submit" th:formaction="|/book/${id}/editauthor|">検索</button>
+    </form>
+</div>
+
+<div>
+    <form method="post">
+        <table>
+            <tr th:each="author : ${findAuthors}">
+                <td>・</td>
+                <td>
+                    <a th:href="|/author/${author.id}|">[[${author.name}]]</a>
+                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="addAuthorId"
+                            th:value="${author.id}">+
                     </button>
                 </td>
             </tr>
@@ -53,7 +69,7 @@
 
 <div>
     <form method="post">
-        <label for="newAuthor">新規作成し追加:</label>
+        <label for="newAuthor">著者名:</label>
         <input type="text" id="newAuthor" name="newAuthor" placeholder="田中 太郎...">
         <button type="submit">追加</button>
     </form>
