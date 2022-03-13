@@ -17,7 +17,7 @@
 commitedBookが存在すれば表示される
 <!-- */-->
 <p th:if="${commitedBook} ? true : false">
-    <a th:href="'/book/' + ${commitedBook.id}">「[[${commitedBook.title}]]」</a> を追加しました
+    <a th:href="|/book/${commitedBook.id}|">「[[${commitedBook.title}]]」</a> を追加しました
 </p>
 
 <form action="/book/new" method="post">
