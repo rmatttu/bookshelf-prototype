@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>hello</h1>
-    <p>[[${message}]]</p>
-    <p>[[${book.title}]]</p>
-    <ul>
-        <li th:each="author : ${authors}">[[${author.name}]]</li>
-    </ul>
+<h1>hello</h1>
+<p>[[${message}]]</p>
+<p>[[${book.title}]]</p>
+<ul>
+    <li th:each="author : ${authors}">[[${author.name}]]</li>
+</ul>
 
-    <form method="post">
-        <label for="message">Message:</label>
-        <input type="text" id="message" name="message">
-        <table>
-            <tr th:each="author : ${authors}">
-                <td>
-                    [[${author.name}]]
-                    <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="add"    th:value="${author.id}">+</button>
-                    <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="remove" th:value="${author.id}">-</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+<form method="post">
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message">
+    <table>
+        <tr th:each="author : ${authors}">
+            <td>
+                [[${author.name}]]
+                <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="add"
+                        th:value="${author.id}">+
+                </button>
+                <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}" name="remove"
+                        th:value="${author.id}">-
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
 
-    <form method="get">
-        <input type="search" id="searchAuthor" name="searchAuthor" th:value="${searchAuthor}">
-        <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}">著者を検索</button>
-    </form>
+<form method="get">
+    <input type="search" id="searchAuthor" name="searchAuthor" th:value="${searchAuthor}">
+    <button type="submit" th:formaction="@{'/book/' + ${id} + '/editauthor'}">著者を検索</button>
+</form>
 </body>
 </html>
