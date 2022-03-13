@@ -38,7 +38,6 @@ class EditAuthorController {
     fun editAuthorAdd(
         @PathVariable id: Int,
         @RequestParam add: Int,
-        @RequestParam message: String,
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
@@ -46,7 +45,7 @@ class EditAuthorController {
         if (book.isEmpty) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
         }
-        model["message"] = "ADD $add $message"
+        model["message"] = "ADD $add"
         model["searchAuthor"] = searchAuthor
         model["book"] = book.get()
         model["authors"] = book.get().bookAuthors.map { it.author }
@@ -57,7 +56,6 @@ class EditAuthorController {
     fun editAuthorRemove(
         @PathVariable id: Int,
         @RequestParam remove: String,
-        @RequestParam message: String,
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
@@ -65,7 +63,25 @@ class EditAuthorController {
         if (book.isEmpty) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
         }
-        model["message"] = "REMOVE $remove $message"
+        model["message"] = "REMOVE $remove"
+        model["searchAuthor"] = searchAuthor
+        model["book"] = book.get()
+        model["authors"] = book.get().bookAuthors.map { it.author }
+        return "book/editauthor"
+    }
+
+    @PostMapping("/book/{id}/editauthor", params = ["newAuthor"])
+    fun editAuthorNewAuthor(
+        @PathVariable id: Int,
+        @RequestParam newAuthor: String,
+        @RequestParam(defaultValue = "") searchAuthor: String,
+        model: Model
+    ): String {
+        val book = bookRepository.findById(id)
+        if (book.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        model["message"] = "newAuthor"
         model["searchAuthor"] = searchAuthor
         model["book"] = book.get()
         model["authors"] = book.get().bookAuthors.map { it.author }
