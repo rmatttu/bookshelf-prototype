@@ -16,6 +16,8 @@
 
 <h2>この著者の書籍</h2>
 
+<p>[[${pagingInfo.total}]] 件</p>
+
 <ul>
     <li th:each="book : ${books}">
         <a th:href="'/book/' + ${book.id}">
@@ -23,6 +25,12 @@
         </a>
     </li>
 </ul>
+
+<div>
+    <a th:href="pagerInfo.currentPage"> < </a>
+    [[${pagingInfo.currentPage + 1}]] / [[${pagingInfo.pageLength}]]
+    <a th:href="pagerInfo.currentPage"> > </a>
+</div>
 
 </body>
 </html>

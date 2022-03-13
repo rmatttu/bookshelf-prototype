@@ -1,7 +1,22 @@
 package jp.rmatttu.simplebookshelf.view
 
-class PagingInfo(val current: Int, val total: Int, val hasPrevPage: Boolean, val hasNextPage: Boolean) {
+/**
+ * ページング情報を管理します
+ *
+ * @param currentPage 現在表示しているページ番号（０から始まります）
+ * @param total トータルのデータ件数
+ * @param pageLength 総ページ数
+ * @param hasPrevPage 前のページ遷移が可能かどうかを表すBoolean
+ * @param hasNextPage 次のページ遷移が可能かどうかを表すBoolean
+ */
+class PagingInfo(
+    val currentPage: Int,
+    val total: Int,
+    val pageLength: Int,
+    val hasPrevPage: Boolean,
+    val hasNextPage: Boolean
+) {
     override fun toString(): String {
-        return "PagingInfo(current=$current, total=$total, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
+        return "PagingInfo(currentPage=$currentPage, total=$total, pageLength=$pageLength, hasPrevPage=$hasPrevPage, hasNextPage=$hasNextPage)"
     }
 }
