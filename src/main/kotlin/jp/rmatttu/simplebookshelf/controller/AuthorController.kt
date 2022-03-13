@@ -5,6 +5,8 @@ import jp.rmatttu.simplebookshelf.repository.AuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookAuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -25,14 +27,14 @@ class AuthorController {
     lateinit var bookAuthorRepository: BookAuthorRepository
 
     @GetMapping("/author/{id}")
-    fun index(@PathVariable id: Int, model: Model): String {
+    fun index(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
         val authorRecord = authorRepository.findById(id)
-        if (authorRecord.isEmpty()){
+        if (authorRecord.isEmpty()) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
         }
 
         val author = authorRecord.get()
-        val bookRecords = bookAuthorRepository.findByAuthorId(author.id)
+        val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }
 
         model["author"] = author
