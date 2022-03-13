@@ -1,9 +1,9 @@
 package jp.rmatttu.simplebookshelf.controller
 
-import jp.rmatttu.simplebookshelf.entity.Book
 import jp.rmatttu.simplebookshelf.repository.AuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookAuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookRepository
+import jp.rmatttu.simplebookshelf.view.Pager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -37,8 +37,13 @@ class AuthorController {
         val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }
 
+        val totalCount = bookAuthorRepository.countByAuthorId(author.id)
+        val pager = Pager(pageable.pageSize, totalCount)
+        val pagingInfo = pager.generatePagingInfo(pageable.pageNumber)
+
         model["author"] = author
         model["books"] = books
+        model["pagingInfo"] = pagingInfo
         return "author/author"
     }
 
