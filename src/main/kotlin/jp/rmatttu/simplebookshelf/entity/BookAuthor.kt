@@ -22,7 +22,7 @@ class BookAuthor(
      *
      * `book_id`カラムのidから自動的にマッピングされます
      */
-    @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+    @ManyToOne()
     val book: Book,
 
     /**
@@ -30,7 +30,7 @@ class BookAuthor(
      *
      * `author_id`カラムから自動的にマッピングされます
      */
-    @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+    @ManyToOne()
     val author: Author
 ) {
 
