@@ -56,7 +56,7 @@ class AuthorController {
 
 
     @GetMapping("/authors/{id}")
-    fun getAuthor(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
+    fun getAuthors(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
         val author = getAuthor(id)
         val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }
