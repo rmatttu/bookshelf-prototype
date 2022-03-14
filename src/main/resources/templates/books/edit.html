@@ -8,8 +8,12 @@
 
 <div>
     <a href="/">TOP</a>
-    > <a th:href="|/books/${book.id}|">書籍</a>
-    > 書籍の編集
+    >
+    <a href="/books/search">書籍の検索</a>
+    >
+    <a th:href="|/books/${book.id}|">書籍</a>
+    >
+    <a th:href="|/books/${book.id}/edit|">書籍の編集</a>
 </div>
 
 <h1>書籍の編集</h1>
