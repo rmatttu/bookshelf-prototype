@@ -47,6 +47,27 @@ class EditAuthorController {
         return authorRecord.get()
     }
 
+    private fun getFindAuthors(
+        book: Book,
+        searchAuthor: String,
+        pageable: Pageable
+    ): Pair<Int, List<Author>> {
+        val ignoreAuthorIdList = book.bookAuthors.map { it.author.id }
+        if (ignoreAuthorIdList.isEmpty()) {
+            // 初回登録等で、無視するべき著者が居ない場合
+            val totalDataCount = authorRepository.countByNameContaining(searchAuthor)
+            val findAuthors = authorRepository.findByNameContaining(searchAuthor, pageable)
+            return Pair(totalDataCount, findAuthors)
+        } else {
+            // すでにこの書籍に登録してある著者を無視する
+            val totalDataCount = authorRepository.countByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList)
+            val findAuthors =
+                authorRepository.findByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList, pageable)
+            return Pair(totalDataCount, findAuthors)
+        }
+    }
+
+
     @GetMapping("/books/{id}/editauthor")
     fun getEditAuthors(
         @PathVariable id: Int,
@@ -55,12 +76,7 @@ class EditAuthorController {
         model: Model
     ): String {
         val book = getBook(id)
-
-        // すでにこの書籍に登録してある著者は無視する
-        val ignoreAuthorIdList = book.bookAuthors.map { it.author.id }
-        val totalDataCount = authorRepository.countByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList)
-        val findAuthors = authorRepository.findByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList, pageable)
-
+        val (totalDataCount, findAuthors) = getFindAuthors(book, searchAuthor, pageable)
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
