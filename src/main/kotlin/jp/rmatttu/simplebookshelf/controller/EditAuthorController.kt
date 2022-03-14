@@ -43,7 +43,7 @@ class EditAuthorController {
         }
 
         val totalDataCount = authorRepository.countByNameContaining(searchAuthor)
-        val findAuthors = authorRepository.findByNameContaining(searchAuthor)
+        val findAuthors = authorRepository.findByNameContaining(searchAuthor, pageable)
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
