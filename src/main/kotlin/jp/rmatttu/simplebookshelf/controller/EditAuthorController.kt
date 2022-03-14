@@ -77,6 +77,7 @@ class EditAuthorController {
         val book = getBook(id)
         val author = getAuthor(addAuthorId)
         val newBookAuthor = BookAuthor(book, author)
+        // TODO すでにbookに紐付いているauthor.idを受け取った場合の処理を実装
         bookAuthorRepository.save(newBookAuthor)
 
         model["book"] = book
@@ -98,13 +99,12 @@ class EditAuthorController {
         val author = getAuthor(removeAuthorId)
         val removeTargetRecords = bookAuthorRepository.findByBookIdAndAuthorId(book.id, author.id)
         if (removeTargetRecords.isEmpty()) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found bookId($book.id) and authorId($author.id)")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Not found bookId($book.id) and authorId($author.id)")
         }
         val removeTarget = removeTargetRecords.get(0)
         bookAuthorRepository.delete(removeTarget)
         // TODO 削除したRecordをログに出力
-
-        // TODO 1件も紐づく書籍がなくなっていた場合は、authorも削除
+        // TODO 1件も紐づく書籍がなくなっていた場合は、authorも自動削除しメッセージを表示
 
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
@@ -124,6 +124,12 @@ class EditAuthorController {
     ): String {
         val book = getBook(id)
         val insertAuthor = Author(newAuthor)
+        authorRepository.save(insertAuthor)
+        val newBookAuthor = BookAuthor(book, insertAuthor)
+        bookAuthorRepository.save(newBookAuthor)
+
+        // TODO 追加した情報をログに出力
+
         model["message"] = "newAuthor"
         model["findAuthors"] = ArrayList<Author>()
         model["searchAuthor"] = searchAuthor
