@@ -40,7 +40,6 @@
             </tr>
         </table>
     </form>
-
 </div>
 
 <h2>検索して追加</h2>
@@ -69,6 +68,17 @@
         </table>
     </form>
 
+    <div>
+        <a th:if="${pagerInfo.hasPrevPage}"
+           th:href="|/books/${id}/editauthor?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
+        > < </a>
+
+        [[${pagerInfo.currentPageNumber + 1}]] / [[${pagerInfo.totalPageCount}]]
+
+        <a th:if="${pagerInfo.hasNextPage}"
+           th:href="|/books/${id}/editauthor?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
+        > > </a>
+    </div>
 </div>
 
 <h2>新規作成して追加</h2>
