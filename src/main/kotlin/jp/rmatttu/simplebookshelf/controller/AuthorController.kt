@@ -37,8 +37,26 @@ class AuthorController {
         return authorRecord.get()
     }
 
+    @GetMapping("/authors")
+    fun getIndex(
+        @RequestParam(defaultValue = "") searchName: String,
+        @PageableDefault pageable: Pageable,
+        model: Model
+    ): String {
+        val findAuthors = authorRepository.findByNameContaining(searchName, pageable)
+        val totalCount = authorRepository.countByNameContaining(searchName)
+        val pager = Pager(pageable.pageSize, totalCount)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
+        model["searchName"] = searchName
+        model["findAuthors"] = findAuthors
+        model["pagerInfo"] = pagerInfo
+        return "author/search"
+    }
+
+
     @GetMapping("/author/{id}")
-    fun index(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
+    fun getAuthorById(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
         val author = getAuthor(id)
         val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }

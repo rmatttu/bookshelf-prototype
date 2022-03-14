@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>著者の検索</title>
+</head>
+<body>
+
+<div>
+    <a href="/">TOP</a> > 著者の検索
+</div>
+
+<h1>著者の検索</h1>
+
+<div>
+    <form method="get">
+        <input type="search" id="searchName" name="searchName" placeholder="田中 太郎..."
+               th:value="${searchName}">
+        <button type="submit" formaction="/authors">検索</button>
+    </form>
+</div>
+
+<div>
+    <table>
+        <tr th:each="author : ${findAuthors}">
+            <td>・</td>
+            <td>
+                <a th:href="|/authors/${author.id}|">[[${author.name}]]</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div>
+
+    <a th:if="${pagerInfo.hasPrevPage}"
+       th:href="|/authors?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
+    > < </a>
+
+    [[${pagerInfo.currentPageNumber + 1}]] / [[${pagerInfo.totalPageCount}]]
+
+    <a th:if="${pagerInfo.hasNextPage}"
+       th:href="|/authors?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
+    > > </a>
+
+</div>
+
+</body>
+</html>
