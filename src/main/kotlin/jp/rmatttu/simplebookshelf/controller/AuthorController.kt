@@ -1,5 +1,6 @@
 package jp.rmatttu.simplebookshelf.controller
 
+import jp.rmatttu.simplebookshelf.entity.Author
 import jp.rmatttu.simplebookshelf.repository.AuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookAuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookRepository
@@ -13,6 +14,8 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
@@ -26,14 +29,17 @@ class AuthorController {
     @Autowired
     lateinit var bookAuthorRepository: BookAuthorRepository
 
-    @GetMapping("/author/{id}")
-    fun index(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
+    private fun getAuthor(id: Int): Author {
         val authorRecord = authorRepository.findById(id)
         if (authorRecord.isEmpty()) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
         }
+        return authorRecord.get()
+    }
 
-        val author = authorRecord.get()
+    @GetMapping("/author/{id}")
+    fun index(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
+        val author = getAuthor(id)
         val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }
 
@@ -45,6 +51,28 @@ class AuthorController {
         model["books"] = books
         model["pagerInfo"] = pagerInfo
         return "author/author"
+    }
+
+    @GetMapping("author/{id}/edit")
+    fun edit(@PathVariable id: Int, model: Model): String {
+        val author = getAuthor(id)
+        model["edited"] = false
+        model["author"] = author
+        return "author/edit"
+    }
+
+    @PostMapping("author/{id}/edit")
+    fun editPost(@PathVariable id: Int, @RequestParam name: String, model: Model): String {
+        val author = getAuthor(id)
+
+        // TODO nameのバリデーションを追加、現状、前回同様のタイトル、空文字などが登録できる
+        // TODO ログに変更を記録
+
+        val editedAuthor = Author(author.id, name, author.bookAuthors)
+        authorRepository.save(editedAuthor)
+        model["edited"] = true
+        model["author"] = editedAuthor
+        return "author/edit"
     }
 
 }

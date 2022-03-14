@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>著者の編集</title>
+</head>
+<body>
+
+<div>
+    <a href="/">TOP</a>
+    > <a th:href="|/author/${author.id}|">著者</a>
+    > 書籍の編集
+</div>
+
+<h1>著者の編集</h1>
+
+<p th:if="${edited}">
+    <a th:href="|/author/${author.id}|">「[[${author.name}]]」</a> へ変更しました
+</p>
+
+<form th:action="|/author/${author.id}/edit|" method="post">
+    <label for="name">名前:</label>
+    <input type="text" id="name" name="name" th:value="${author.name}">
+    <button type="submit">変更</button>
+</form>
+
+</body>
+</html>
