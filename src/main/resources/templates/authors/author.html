@@ -13,13 +13,13 @@
 <h1>著者</h1>
 <h2>名前</h2>
 <p>[[${author.name}]]</p>
-<a th:href="|/author/${author.id}/edit|">名前を編集</a>
+<a th:href="|/authors/${author.id}/edit|">名前を編集</a>
 
 <h2>この著者の書籍</h2>
 <p>[[${pagerInfo.totalDataCount}]] 件</p>
 <ul>
     <li th:each="book : ${books}">
-        <a th:href="|/book/${book.id}|">
+        <a th:href="|/books/${book.id}|">
             [[${book.title}]]
         </a>
     </li>
@@ -28,13 +28,13 @@
 <div>
 
     <a th:if="${pagerInfo.hasPrevPage}"
-       th:href="|/author/${author.id}?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
+       th:href="|/authors/${author.id}?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
     > < </a>
 
     [[${pagerInfo.currentPageNumber + 1}]] / [[${pagerInfo.totalPageCount}]]
 
     <a th:if="${pagerInfo.hasNextPage}"
-       th:href="|/author/${author.id}?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
+       th:href="|/authors/${author.id}?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
     > > </a>
 
 </div>
