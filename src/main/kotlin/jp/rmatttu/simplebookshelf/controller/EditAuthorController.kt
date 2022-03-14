@@ -1,6 +1,7 @@
 package jp.rmatttu.simplebookshelf.controller
 
 import jp.rmatttu.simplebookshelf.entity.Author
+import jp.rmatttu.simplebookshelf.entity.Book
 import jp.rmatttu.simplebookshelf.entity.BookAuthor
 import jp.rmatttu.simplebookshelf.repository.AuthorRepository
 import jp.rmatttu.simplebookshelf.repository.BookAuthorRepository
@@ -30,6 +31,22 @@ class EditAuthorController {
     @Autowired
     lateinit var bookAuthorRepository: BookAuthorRepository
 
+    private fun getBook(id: Int): Book {
+        val bookRecord = bookRepository.findById(id)
+        if (bookRecord.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
+        }
+        return bookRecord.get()
+    }
+
+    private fun getAuthor(addAuthorId: Int): Author {
+        val authorRecord = authorRepository.findById(addAuthorId)
+        if (authorRecord.isEmpty) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found addAuthorId id: $addAuthorId")
+        }
+        return authorRecord.get()
+    }
+
     @GetMapping("/book/{id}/editauthor")
     fun editAuthor(
         @PathVariable id: Int,
@@ -37,21 +54,16 @@ class EditAuthorController {
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
-        val book = bookRepository.findById(id)
-        if (book.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
-        }
-
+        val book = getBook(id)
         val totalDataCount = authorRepository.countByNameContaining(searchAuthor)
         val findAuthors = authorRepository.findByNameContaining(searchAuthor, pageable)
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
-
         model["message"] = "searchAuthor: $searchAuthor"
         model["findAuthors"] = findAuthors
         model["searchAuthor"] = searchAuthor
-        model["book"] = book.get()
-        model["authors"] = book.get().bookAuthors.map { it.author }
+        model["book"] = book
+        model["authors"] = book.bookAuthors.map { it.author }
         return "book/editauthor"
     }
 
@@ -62,17 +74,8 @@ class EditAuthorController {
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
-        val bookRecord = bookRepository.findById(id)
-        if (bookRecord.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found book id: $id")
-        }
-        val authorRecord = authorRepository.findById(addAuthorId)
-        if (authorRecord.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found addAuthorId id: $addAuthorId")
-        }
-
-        val book = bookRecord.get()
-        val author = authorRecord.get()
+        val book = getBook(id)
+        val author = getAuthor(addAuthorId)
         val newBookAuthor = BookAuthor(book, author)
         bookAuthorRepository.save(newBookAuthor)
 
@@ -91,17 +94,8 @@ class EditAuthorController {
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
-        val bookRecord = bookRepository.findById(id)
-        if (bookRecord.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found book id: $id")
-        }
-        val authorRecord = authorRepository.findById(removeAuthorId)
-        if (authorRecord.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found removeAuthorId id: $removeAuthorId")
-        }
-
-        val book = bookRecord.get()
-        val author = authorRecord.get()
+        val book = getBook(id)
+        val author = getAuthor(removeAuthorId)
         val removeTargetRecords = bookAuthorRepository.findByBookIdAndAuthorId(book.id, author.id)
         if (removeTargetRecords.isEmpty()) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found bookId($book.id) and authorId($author.id)")
@@ -128,15 +122,13 @@ class EditAuthorController {
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
-        val book = bookRepository.findById(id)
-        if (book.isEmpty) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Not found id: $id")
-        }
+        val book = getBook(id)
+        val insertAuthor = Author(newAuthor)
         model["message"] = "newAuthor"
         model["findAuthors"] = ArrayList<Author>()
         model["searchAuthor"] = searchAuthor
-        model["book"] = book.get()
-        model["authors"] = book.get().bookAuthors.map { it.author }
+        model["book"] = book
+        model["authors"] = book.bookAuthors.map { it.author }
         return "book/editauthor"
     }
 
