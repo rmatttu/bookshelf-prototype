@@ -64,7 +64,6 @@ class EditAuthorController {
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
-        model["message"] = "searchAuthor: $searchAuthor"
         model["findAuthors"] = findAuthors
         model["searchAuthor"] = searchAuthor
         model["book"] = book
@@ -136,7 +135,6 @@ class EditAuthorController {
 
         // TODO 追加した情報をログに出力
 
-        model["message"] = "newAuthor"
         model["findAuthors"] = ArrayList<Author>()
         model["searchAuthor"] = searchAuthor
         model["book"] = book
