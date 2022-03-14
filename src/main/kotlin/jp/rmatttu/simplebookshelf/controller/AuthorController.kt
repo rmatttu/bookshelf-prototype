@@ -37,8 +37,8 @@ class AuthorController {
         return authorRecord.get()
     }
 
-    @GetMapping("/authors")
-    fun getIndex(
+    @GetMapping("/authors/search")
+    fun getSearch(
         @RequestParam(defaultValue = "") searchName: String,
         @PageableDefault pageable: Pageable,
         model: Model
@@ -51,12 +51,12 @@ class AuthorController {
         model["searchName"] = searchName
         model["findAuthors"] = findAuthors
         model["pagerInfo"] = pagerInfo
-        return "author/search"
+        return "authors/search"
     }
 
 
-    @GetMapping("/author/{id}")
-    fun getAuthorById(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
+    @GetMapping("/authors/{id}")
+    fun getAuthor(@PathVariable id: Int, @PageableDefault pageable: Pageable, model: Model): String {
         val author = getAuthor(id)
         val bookRecords = bookAuthorRepository.findByAuthorId(author.id, pageable)
         val books = bookRecords.map { it.book }
@@ -68,19 +68,19 @@ class AuthorController {
         model["author"] = author
         model["books"] = books
         model["pagerInfo"] = pagerInfo
-        return "author/author"
+        return "authors/author"
     }
 
-    @GetMapping("author/{id}/edit")
-    fun edit(@PathVariable id: Int, model: Model): String {
+    @GetMapping("/authors/{id}/edit")
+    fun getEdit(@PathVariable id: Int, model: Model): String {
         val author = getAuthor(id)
         model["edited"] = false
         model["author"] = author
-        return "author/edit"
+        return "authors/edit"
     }
 
-    @PostMapping("author/{id}/edit")
-    fun editPost(@PathVariable id: Int, @RequestParam name: String, model: Model): String {
+    @PostMapping("authors/{id}/edit")
+    fun postEdit(@PathVariable id: Int, @RequestParam name: String, model: Model): String {
         val author = getAuthor(id)
 
         // TODO nameのバリデーションを追加、現状、前回同様のタイトル、空文字などが登録できる
@@ -90,7 +90,7 @@ class AuthorController {
         authorRepository.save(editedAuthor)
         model["edited"] = true
         model["author"] = editedAuthor
-        return "author/edit"
+        return "authors/edit"
     }
 
 }
