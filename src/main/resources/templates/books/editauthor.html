@@ -8,7 +8,7 @@
 
 <div>
     <a href="/">TOP</a>
-    > <a th:href="|/book/${book.id}|">書籍</a>
+    > <a th:href="|/books/${book.id}|">書籍</a>
     > 著者の編集
 </div>
 
@@ -18,7 +18,7 @@
 
 <h2>書籍タイトル</h2>
 
-<a th:href="|/book/${book.id}|"> [[${book.title}]] </a>
+<a th:href="|/books/${book.id}|"> [[${book.title}]] </a>
 
 <h2>著者</h2>
 
@@ -28,8 +28,8 @@
             <tr th:each="author : ${authors}">
                 <td>・</td>
                 <td>
-                    <a th:href="|/author/${author.id}|">[[${author.name}]]</a>
-                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="removeAuthorId"
+                    <a th:href="|/authors/${author.id}|">[[${author.name}]]</a>
+                    <button type="submit" th:formaction="|/books/${id}/editauthor|" name="removeAuthorId"
                             th:value="${author.id}">-
                     </button>
                 </td>
@@ -44,7 +44,7 @@
 <div>
     <form method="get">
         <input type="search" id="searchAuthor" name="searchAuthor" placeholder="田中 太郎..." th:value="${searchAuthor}">
-        <button type="submit" th:formaction="|/book/${id}/editauthor|">検索</button>
+        <button type="submit" th:formaction="|/books/${id}/editauthor|">検索</button>
     </form>
 </div>
 
@@ -54,8 +54,8 @@
             <tr th:each="author : ${findAuthors}">
                 <td>・</td>
                 <td>
-                    <a th:href="|/author/${author.id}|">[[${author.name}]]</a>
-                    <button type="submit" th:formaction="|/book/${id}/editauthor|" name="addAuthorId"
+                    <a th:href="|/authors/${author.id}|">[[${author.name}]]</a>
+                    <button type="submit" th:formaction="|/books/${id}/editauthor|" name="addAuthorId"
                             th:value="${author.id}">+
                     </button>
                 </td>
