@@ -115,15 +115,15 @@ class EditAuthorController {
         return "book/editauthor"
     }
 
-    @PostMapping("/book/{id}/editauthor", params = ["newAuthor"])
+    @PostMapping("/book/{id}/editauthor", params = ["newAuthorName"])
     fun editAuthorNewAuthor(
         @PathVariable id: Int,
-        @RequestParam newAuthor: String,
+        @RequestParam newAuthorName: String,
         @RequestParam(defaultValue = "") searchAuthor: String,
         model: Model
     ): String {
         val book = getBook(id)
-        val insertAuthor = Author(newAuthor)
+        val insertAuthor = Author(newAuthorName)
         authorRepository.save(insertAuthor)
         val newBookAuthor = BookAuthor(book, insertAuthor)
         bookAuthorRepository.save(newBookAuthor)
