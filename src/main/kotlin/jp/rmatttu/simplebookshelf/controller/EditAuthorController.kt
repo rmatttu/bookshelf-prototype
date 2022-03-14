@@ -55,14 +55,20 @@ class EditAuthorController {
         model: Model
     ): String {
         val book = getBook(id)
-        val totalDataCount = authorRepository.countByNameContaining(searchAuthor)
-        val findAuthors = authorRepository.findByNameContaining(searchAuthor, pageable)
+
+        // すでにこの書籍に登録してある著者は無視する
+        val ignoreAuthorIdList = book.bookAuthors.map { it.author.id }
+        val totalDataCount = authorRepository.countByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList)
+        val findAuthors = authorRepository.findByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList, pageable)
+
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
         model["message"] = "searchAuthor: $searchAuthor"
         model["findAuthors"] = findAuthors
         model["searchAuthor"] = searchAuthor
         model["book"] = book
+        model["pagerInfo"] = pagerInfo
         model["authors"] = book.bookAuthors.map { it.author }
         return "books/editauthor"
     }
