@@ -47,8 +47,8 @@ class EditAuthorController {
         return authorRecord.get()
     }
 
-    @GetMapping("/book/{id}/editauthor")
-    fun editAuthor(
+    @GetMapping("/books/{id}/editauthor")
+    fun getEditAuthors(
         @PathVariable id: Int,
         @PageableDefault pageable: Pageable,
         @RequestParam(defaultValue = "") searchAuthor: String,
@@ -64,11 +64,11 @@ class EditAuthorController {
         model["searchAuthor"] = searchAuthor
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
-        return "book/editauthor"
+        return "books/editauthor"
     }
 
     @PostMapping("/book/{id}/editauthor", params = ["addAuthorId"])
-    fun editAuthorAdd(
+    fun postEditAuthorAddAuthorId(
         @PathVariable id: Int,
         @RequestParam addAuthorId: Int,
         @RequestParam(defaultValue = "") searchAuthor: String,
@@ -85,11 +85,11 @@ class EditAuthorController {
         model["addAuthorId"] = addAuthorId
         model["searchAuthor"] = ""
         model["findAuthors"] = ArrayList<Author>()
-        return "book/editauthor"
+        return "books/editauthor"
     }
 
     @PostMapping("/book/{id}/editauthor", params = ["removeAuthorId"])
-    fun editAuthorRemove(
+    fun postEditAuthorRemoveAuthorId(
         @PathVariable id: Int,
         @RequestParam removeAuthorId: Int,
         @RequestParam(defaultValue = "") searchAuthor: String,
@@ -112,11 +112,11 @@ class EditAuthorController {
         model["RemoveAuthorId"] = author.id
         model["searchAuthor"] = ""
         model["findAuthors"] = ArrayList<Author>()
-        return "book/editauthor"
+        return "books/editauthor"
     }
 
     @PostMapping("/book/{id}/editauthor", params = ["newAuthorName"])
-    fun editAuthorNewAuthor(
+    fun postEditAuthorNewAuthorName(
         @PathVariable id: Int,
         @RequestParam newAuthorName: String,
         @RequestParam(defaultValue = "") searchAuthor: String,
@@ -135,7 +135,7 @@ class EditAuthorController {
         model["searchAuthor"] = searchAuthor
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
-        return "book/editauthor"
+        return "books/editauthor"
     }
 
 }
