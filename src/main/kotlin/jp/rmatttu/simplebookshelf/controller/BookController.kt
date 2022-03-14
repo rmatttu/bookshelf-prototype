@@ -71,7 +71,7 @@ class BookController {
         return "books/book"
     }
 
-    @GetMapping("book/{id}/edit")
+    @GetMapping("books/{id}/edit")
     fun getEdit(@PathVariable id: Int, model: Model): String {
         val book = getBook(id)
         model["edited"] = false
@@ -79,7 +79,7 @@ class BookController {
         return "books/edit"
     }
 
-    @PostMapping("book/{id}/edit")
+    @PostMapping("books/{id}/edit")
     fun postEdit(@PathVariable id: Int, @RequestParam title: String, model: Model): String {
         val book = getBook(id)
 

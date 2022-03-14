@@ -79,7 +79,7 @@ class AuthorController {
         return "authors/edit"
     }
 
-    @PostMapping("authors/{id}/edit")
+    @PostMapping("/authors/{id}/edit")
     fun postEdit(@PathVariable id: Int, @RequestParam name: String, model: Model): String {
         val author = getAuthor(id)
 

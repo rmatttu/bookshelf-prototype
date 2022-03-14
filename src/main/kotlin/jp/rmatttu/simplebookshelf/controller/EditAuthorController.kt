@@ -67,7 +67,7 @@ class EditAuthorController {
         return "books/editauthor"
     }
 
-    @PostMapping("/book/{id}/editauthor", params = ["addAuthorId"])
+    @PostMapping("/books/{id}/editauthor", params = ["addAuthorId"])
     fun postEditAuthorAddAuthorId(
         @PathVariable id: Int,
         @RequestParam addAuthorId: Int,
@@ -88,7 +88,7 @@ class EditAuthorController {
         return "books/editauthor"
     }
 
-    @PostMapping("/book/{id}/editauthor", params = ["removeAuthorId"])
+    @PostMapping("/books/{id}/editauthor", params = ["removeAuthorId"])
     fun postEditAuthorRemoveAuthorId(
         @PathVariable id: Int,
         @RequestParam removeAuthorId: Int,
@@ -115,7 +115,7 @@ class EditAuthorController {
         return "books/editauthor"
     }
 
-    @PostMapping("/book/{id}/editauthor", params = ["newAuthorName"])
+    @PostMapping("/books/{id}/editauthor", params = ["newAuthorName"])
     fun postEditAuthorNewAuthorName(
         @PathVariable id: Int,
         @RequestParam newAuthorName: String,
