@@ -36,13 +36,13 @@
 <div>
 
     <a th:if="${pagerInfo.hasPrevPage}"
-       th:href="|/authors?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
+       th:href="|/authors/search?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber - 1}|"
     > < </a>
 
     [[${pagerInfo.currentPageNumber + 1}]] / [[${pagerInfo.totalPageCount}]]
 
     <a th:if="${pagerInfo.hasNextPage}"
-       th:href="|/authors?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
+       th:href="|/authors/search?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber + 1}|"
     > > </a>
 
 </div>
