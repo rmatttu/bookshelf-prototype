@@ -28,13 +28,13 @@ class BookController {
         return bookRecord.get()
     }
 
-    @GetMapping("/book/new")
-    fun newGetMethod(model: Model): String {
-        return "book/new"
+    @GetMapping("/books/new")
+    fun getNew(model: Model): String {
+        return "books/new"
     }
 
-    @PostMapping("/book/new")
-    fun newPostMethod(@RequestParam title: String, model: Model): String {
+    @PostMapping("/books/new")
+    fun postNew(@RequestParam title: String, model: Model): String {
         // TODO titleのバリデーションを追加、空文字などが登録できてしまう
 
         val book = Book(title)
@@ -42,11 +42,11 @@ class BookController {
         // newBook.id など更新されている
 
         model["commitedBook"] = book
-        return "book/new"
+        return "books/new"
     }
 
-    @GetMapping("/book/search")
-    fun searchGetMethod(
+    @GetMapping("/books/search")
+    fun getSearch(
         @RequestParam(defaultValue = "") searchTitle: String,
         pageable: Pageable,
         model: Model
@@ -59,28 +59,28 @@ class BookController {
         model["searchTitle"] = searchTitle
         model["findBooks"] = findBooks
         model["pagerInfo"] = pagerInfo
-        return "book/search"
+        return "books/search"
     }
 
-    @GetMapping("/book/{id}")
-    fun index(@PathVariable id: Int, model: Model): String {
+    @GetMapping("/books/{id}")
+    fun getBooks(@PathVariable id: Int, model: Model): String {
         val book = getBook(id)
         model["message"] = book.title
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
-        return "book/book"
+        return "books/book"
     }
 
     @GetMapping("book/{id}/edit")
-    fun edit(@PathVariable id: Int, model: Model): String {
+    fun getEdit(@PathVariable id: Int, model: Model): String {
         val book = getBook(id)
         model["edited"] = false
         model["book"] = book
-        return "book/edit"
+        return "books/edit"
     }
 
     @PostMapping("book/{id}/edit")
-    fun editPost(@PathVariable id: Int, @RequestParam title: String, model: Model): String {
+    fun postEdit(@PathVariable id: Int, @RequestParam title: String, model: Model): String {
         val book = getBook(id)
 
         // TODO titleのバリデーションを追加、現状、前回同様のタイトル、空文字などが登録できる
@@ -90,7 +90,7 @@ class BookController {
         bookRepository.save(editedBook)
         model["edited"] = true
         model["book"] = editedBook
-        return "book/edit"
+        return "books/edit"
     }
 
 }
