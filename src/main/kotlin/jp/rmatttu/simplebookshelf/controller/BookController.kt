@@ -2,7 +2,9 @@ package jp.rmatttu.simplebookshelf.controller
 
 import jp.rmatttu.simplebookshelf.entity.Book
 import jp.rmatttu.simplebookshelf.repository.BookRepository
+import jp.rmatttu.simplebookshelf.view.Pager
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -41,6 +43,23 @@ class BookController {
 
         model["commitedBook"] = book
         return "book/new"
+    }
+
+    @GetMapping("/book/search")
+    fun searchGetMethod(
+        @RequestParam(defaultValue = "") searchTitle: String,
+        pageable: Pageable,
+        model: Model
+    ): String {
+        val findBooks = bookRepository.findByTitleContaining(searchTitle, pageable)
+        val totalCount = bookRepository.countByTitleContaining(searchTitle)
+        val pager = Pager(pageable.pageSize, totalCount)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
+        model["searchTitle"] = searchTitle
+        model["findBooks"] = findBooks
+        model["pagerInfo"] = pagerInfo
+        return "book/search"
     }
 
     @GetMapping("/book/{id}")
