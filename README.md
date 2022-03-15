@@ -1,5 +1,10 @@
 # SimpleBookshelf
 
+![release workflow](https://github.com/rmatttu/simple-bookshelf/actions/workflows/release.yml/badge.svg)
+
+A simple bookshelf web application.
+
+
 ## Install
 
 ### docker
