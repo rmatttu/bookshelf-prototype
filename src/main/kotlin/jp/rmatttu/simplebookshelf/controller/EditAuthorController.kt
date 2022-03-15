@@ -81,11 +81,11 @@ class EditAuthorController {
         val pager = Pager(pageable.pageSize, totalDataCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
-        model["findAuthors"] = findAuthors
-        model["searchAuthor"] = searchAuthor
         model["book"] = book
-        model["pagerInfo"] = pagerInfo
         model["authors"] = book.bookAuthors.map { it.author }
+        model["searchAuthor"] = searchAuthor
+        model["findAuthors"] = findAuthors
+        model["pagerInfo"] = pagerInfo
         return "books/editauthor"
     }
 
@@ -94,6 +94,7 @@ class EditAuthorController {
         @PathVariable id: Int,
         @RequestParam addAuthorId: Int,
         @RequestParam(defaultValue = "") searchAuthor: String,
+        @PageableDefault pageable: Pageable,
         model: Model
     ): String {
         val book = getBook(id)
@@ -102,11 +103,16 @@ class EditAuthorController {
         // TODO すでにbookに紐付いているauthor.idを受け取った場合の処理を実装
         bookAuthorRepository.save(newBookAuthor)
 
+        val (totalDataCount, findAuthors) = getFindAuthors(book, searchAuthor, pageable)
+        val pager = Pager(pageable.pageSize, totalDataCount)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
+        model["addAuthorId"] = addAuthorId
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
-        model["addAuthorId"] = addAuthorId
-        model["searchAuthor"] = ""
-        model["findAuthors"] = ArrayList<Author>()
+        model["searchAuthor"] = searchAuthor
+        model["findAuthors"] = findAuthors
+        model["pagerInfo"] = pagerInfo
         return "books/editauthor"
     }
 
@@ -115,6 +121,7 @@ class EditAuthorController {
         @PathVariable id: Int,
         @RequestParam removeAuthorId: Int,
         @RequestParam(defaultValue = "") searchAuthor: String,
+        @PageableDefault pageable: Pageable,
         model: Model
     ): String {
         val book = getBook(id)
@@ -128,12 +135,18 @@ class EditAuthorController {
         // TODO 削除したRecordをログに出力
         // TODO 1件も紐づく書籍がなくなっていた場合は、authorも自動削除しメッセージを表示
 
-        model["book"] = book
-        model["authors"] = book.bookAuthors.map { it.author }
+        val (totalDataCount, findAuthors) = getFindAuthors(book, searchAuthor, pageable)
+        val pager = Pager(pageable.pageSize, totalDataCount)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
         model["RemoveBookAuthorId"] = removeTarget.id
         model["RemoveAuthorId"] = author.id
-        model["searchAuthor"] = ""
-        model["findAuthors"] = ArrayList<Author>()
+
+        model["book"] = book
+        model["authors"] = book.bookAuthors.map { it.author }
+        model["searchAuthor"] = searchAuthor
+        model["findAuthors"] = findAuthors
+        model["pagerInfo"] = pagerInfo
         return "books/editauthor"
     }
 
@@ -142,6 +155,7 @@ class EditAuthorController {
         @PathVariable id: Int,
         @RequestParam newAuthorName: String,
         @RequestParam(defaultValue = "") searchAuthor: String,
+        @PageableDefault pageable: Pageable,
         model: Model
     ): String {
         val book = getBook(id)
@@ -149,13 +163,17 @@ class EditAuthorController {
         authorRepository.save(insertAuthor)
         val newBookAuthor = BookAuthor(book, insertAuthor)
         bookAuthorRepository.save(newBookAuthor)
-
         // TODO 追加した情報をログに出力
 
-        model["findAuthors"] = ArrayList<Author>()
-        model["searchAuthor"] = searchAuthor
+        val (totalDataCount, findAuthors) = getFindAuthors(book, searchAuthor, pageable)
+        val pager = Pager(pageable.pageSize, totalDataCount)
+        val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
+
         model["book"] = book
         model["authors"] = book.bookAuthors.map { it.author }
+        model["searchAuthor"] = searchAuthor
+        model["findAuthors"] = findAuthors
+        model["pagerInfo"] = pagerInfo
         return "books/editauthor"
     }
 

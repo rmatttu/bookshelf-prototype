@@ -33,7 +33,9 @@
                 <td>・</td>
                 <td>
                     <a th:href="|/authors/${author.id}|">[[${author.name}]]</a>
-                    <button type="submit" th:formaction="|/books/${id}/editauthor|" name="removeAuthorId"
+                    <button type="submit"
+                            th:formaction="|/books/${id}/editauthor?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber}|"
+                            name="removeAuthorId"
                             th:value="${author.id}">-
                     </button>
                 </td>
@@ -60,7 +62,9 @@
                 <td>・</td>
                 <td>
                     <a th:href="|/authors/${author.id}|">[[${author.name}]]</a>
-                    <button type="submit" th:formaction="|/books/${id}/editauthor|" name="addAuthorId"
+                    <button type="submit"
+                            th:formaction="|/books/${id}/editauthor/?size=${pagerInfo.pageSize}&page=${pagerInfo.currentPageNumber}|"
+                            name="addAuthorId"
                             th:value="${author.id}">+
                     </button>
                 </td>
