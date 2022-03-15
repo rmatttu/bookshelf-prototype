@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository
 interface BookRepository : CrudRepository<Book, Int> {
     fun findAllByOrderById(): List<Book>
     fun findAllByOrderByIdDesc(): List<Book>
-    fun findByTitleContaining(searchTitle: String, pageable: Pageable): List<Book>
-    fun countByTitleContaining(searchTitle: String): Int
+    fun findByTitleContainingIgnoreCase(searchTitle: String, pageable: Pageable): List<Book>
+    fun countByTitleContainingIgnoreCase(searchTitle: String): Int
 }

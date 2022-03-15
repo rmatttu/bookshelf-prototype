@@ -55,14 +55,15 @@ class EditAuthorController {
         val ignoreAuthorIdList = book.bookAuthors.map { it.author.id }
         if (ignoreAuthorIdList.isEmpty()) {
             // 初回登録等で、無視するべき著者が居ない場合
-            val totalDataCount = authorRepository.countByNameContaining(searchAuthor)
-            val findAuthors = authorRepository.findByNameContaining(searchAuthor, pageable)
+            val totalDataCount = authorRepository.countByNameContainingIgnoreCase(searchAuthor)
+            val findAuthors = authorRepository.findByNameContainingIgnoreCase(searchAuthor, pageable)
             return Pair(totalDataCount, findAuthors)
         } else {
             // すでにこの書籍に登録してある著者を無視する
-            val totalDataCount = authorRepository.countByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList)
+            val totalDataCount =
+                authorRepository.countByNameContainingIgnoreCaseAndIdNotIn(searchAuthor, ignoreAuthorIdList)
             val findAuthors =
-                authorRepository.findByNameContainingAndIdNotIn(searchAuthor, ignoreAuthorIdList, pageable)
+                authorRepository.findByNameContainingIgnoreCaseAndIdNotIn(searchAuthor, ignoreAuthorIdList, pageable)
             return Pair(totalDataCount, findAuthors)
         }
     }

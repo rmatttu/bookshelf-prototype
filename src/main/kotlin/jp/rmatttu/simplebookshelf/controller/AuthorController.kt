@@ -43,8 +43,8 @@ class AuthorController {
         @PageableDefault pageable: Pageable,
         model: Model
     ): String {
-        val findAuthors = authorRepository.findByNameContaining(searchName, pageable)
-        val totalCount = authorRepository.countByNameContaining(searchName)
+        val findAuthors = authorRepository.findByNameContainingIgnoreCase(searchName, pageable)
+        val totalCount = authorRepository.countByNameContainingIgnoreCase(searchName)
         val pager = Pager(pageable.pageSize, totalCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 

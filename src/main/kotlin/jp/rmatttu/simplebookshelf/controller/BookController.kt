@@ -51,8 +51,8 @@ class BookController {
         pageable: Pageable,
         model: Model
     ): String {
-        val findBooks = bookRepository.findByTitleContaining(searchTitle, pageable)
-        val totalCount = bookRepository.countByTitleContaining(searchTitle)
+        val findBooks = bookRepository.findByTitleContainingIgnoreCase(searchTitle, pageable)
+        val totalCount = bookRepository.countByTitleContainingIgnoreCase(searchTitle)
         val pager = Pager(pageable.pageSize, totalCount)
         val pagerInfo = pager.generatePagerInfo(pageable.pageNumber)
 
