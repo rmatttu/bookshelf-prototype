@@ -2,20 +2,14 @@
 
 ## Install
 
-Windows
-
-```bat
-winget install Microsoft.OpenJDK.17
-```
-
-## Usage
-
 ### docker
 
 下記コマンドを実行
 
 ```
-docker-compose up -d
+git clone https://github.com/rmatttu/simple-bookshelf.git
+cd simple-bookshelf
+docker-compose up
 ```
 
 次にアクセス http://localhost:8080
@@ -23,6 +17,8 @@ docker-compose up -d
 ### ビルド&実行
 
 ```bash
+git clone https://github.com/rmatttu/simple-bookshelf.git
+cd simple-bookshelf
 ./gradlew build
 
 # h2databaseを使用し起動します
